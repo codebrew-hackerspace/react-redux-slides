@@ -1,0 +1,96 @@
+---
+name: Introduction to React
+---
+
+# Introduction to React
+
+React is a javascript library that helps you **define user interfaces**. 
+
+When looking at an application, the user needs to be able to view the page and interact with it. When the user makes an interaction with a page (such as clicking a button or typing into a field) the changes need to be reflected in the view and the data needs to be stored. 
+
+React defines what the view looks like, but also how the view should change when the user interacts with the page.
+
+
+## Components
+
+React breaks down every page components. Each component is a reusable, customizable piece of the page that together
+
+Let's say we want to build a online order form for a coffee shop called brewlab. The final product should look like the picture below. 
+
+<img src={require('./images/shoppingCart.png')} width="50%"/>
+
+Let's break this down into components. We have the title component, and then we have the menu in which every element on the list is a component. Inside every list item, we have the name of the drink, the number of those drinks being purchased, and buttons to eitehr increase or decrease thhe number of drinks. 
+
+<img src={require('./images/shoppingCartLabeled.png')} width="50%"/>
+
+## Classes and JSX
+
+A component is anyting that returns JSX, which is a syntax extension for javascript in which looks like a templating language. 
+
+Let's start by writting the title component in which we want to return the jsx ```<h1> BrewLab </h1>```, since thats what we want to render on the page. We can define the component as a class, which has a build in function called ```render```. As long as this function returns JSX, react will know how to render it on the page.
+
+```javascript 
+import React, { Component } from "react";
+
+class Title extends Component {
+    render() {
+        return (
+            <h1> BrewLab </h1>
+        );
+    }
+}
+export default Title;
+```
+
+
+## React DOM
+
+We want to have a root component, which defines how the different components components come together. The root component is stored in a file called ```App.js```, in which the components are imported and added to define the layout of the page.
+
+```javascript
+import React, { Component } from "react";
+import Title from "./components/title"
+
+class App extends Component {
+    render() {
+        return (
+            <Title/>
+        );
+    }
+}
+export default App;
+```
+
+Once we have the root component defined, we want to tell React DOM (Document Object Model) what the root is. The React DOM compiles the entire heiarchy of components starting at the root component and renders it on the page. 
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.js'
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+## State
+
+Next, we want to define the components for items on the menu.  Every component can have a bunch of variables that are local to the component called state. 
+We can define out state inside our component with a JSON format in which we have a bunch of variables and their associated values. You can access the state by calling ```this.state.<name_of_item>```. Also, if you want to execute a piece of javascript inside of JSX, you can wrap it in curly brackets. 
+
+
+```javascript
+import React, { Component } from "react";
+
+class ListItem extends Component {
+    state = {
+        numberOfItem: 0
+    }
+    render() {
+        return (
+            <div> 
+                <p> Latte  {this.state.numberOfItem} </p> 
+            </div> 
+        );
+    }
+}
+export default ListItem;
+```

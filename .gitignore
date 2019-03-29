@@ -1,0 +1,4 @@
+node_modules
+yarn.lock
+.docz
+.DS_Store
